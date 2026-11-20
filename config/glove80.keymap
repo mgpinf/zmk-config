@@ -88,6 +88,10 @@
   quick-tap-ms = <175>;
 };
 
+&caps_word { // Mods deactivate caps-word, requires PR #1451. [TODO: rebase]
+  /delete-property/ ignore-modifiers;
+};
+
 /* Input Listeners */
 
 
