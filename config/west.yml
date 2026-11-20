@@ -12,7 +12,12 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
+      revision: 4de313367288aad5aeaa1243890e40dc813f7008 # main (2026-11-16)
     - name: zmk-adaptive-key
       remote: urob
+      revision: e987227d625e8863343baf16bd11ff90310482a5 # main (2026-10-19)
+    - name: zmk-auto-layer
+      remote: urob
+      revision: b50d514219c5ad61198f9a8be137c59d0674b11c # main (2026-10-19)
   self:
     path: config
