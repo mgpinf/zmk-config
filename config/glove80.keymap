@@ -476,7 +476,7 @@ behaviors {
         combo_right_bracket_combo {
             key-positions = <POS_RH_C3R5 POS_RH_C4R5>;
             bindings = <&kp RBKT>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -484,7 +484,7 @@ behaviors {
         combo_left_bracket_combo {
             key-positions = <POS_RH_C3R5 POS_RH_C2R5>;
             bindings = <&kp LBKT>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -492,7 +492,7 @@ behaviors {
         combo_ampersand_combo {
             key-positions = <POS_RH_C4R3 POS_RH_C4R4>;
             bindings = <&kp LS(N7)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -500,7 +500,7 @@ behaviors {
         combo_backward_slash_combo {
             key-positions = <POS_LH_C3R5 POS_LH_C3R4>;
             bindings = <&kp BSLH>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -508,7 +508,7 @@ behaviors {
         combo_caret_combo {
             key-positions = <POS_RH_C1R3 POS_RH_C1R4>;
             bindings = <&kp LS(N6)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -516,7 +516,7 @@ behaviors {
         combo_delete_combo {
             key-positions = <POS_RH_C3R3 POS_RH_C4R3>;
             bindings = <&kp DEL>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -524,7 +524,7 @@ behaviors {
         combo_dollar_combo {
             key-positions = <POS_LH_C2R4 POS_LH_C2R3>;
             bindings = <&kp LS(N4)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -532,7 +532,7 @@ behaviors {
         combo_equal_combo {
             key-positions = <POS_LH_C2R4 POS_LH_C2R5>;
             bindings = <&kp EQUAL>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -540,7 +540,7 @@ behaviors {
         combo_escape_combo {
             key-positions = <POS_LH_C4R3 POS_LH_C3R3>;
             bindings = <&kp ESC>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -548,7 +548,7 @@ behaviors {
         combo_grave_combo {
             key-positions = <POS_LH_C4R4 POS_LH_C4R5>;
             bindings = <&kp GRAVE>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -556,7 +556,7 @@ behaviors {
         combo_percentage_combo {
             key-positions = <POS_LH_C1R3 POS_LH_C1R4>;
             bindings = <&kp LS(N5)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -564,7 +564,7 @@ behaviors {
         combo_pipe_combo {
             key-positions = <POS_RH_C4R4 POS_RH_C4R5>;
             bindings = <&kp LS(BSLH)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -572,7 +572,7 @@ behaviors {
         combo_tab_combo {
             key-positions = <POS_LH_C3R4 POS_LH_C4R4>;
             bindings = <&kp TAB>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -580,7 +580,7 @@ behaviors {
         combo_underscore_combo {
             key-positions = <POS_RH_C1R4 POS_RH_C1R5>;
             bindings = <&kp LS(MINUS)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -588,7 +588,7 @@ behaviors {
         combo_hyper_right_combo {
             key-positions = <POS_RH_C2R3 POS_RH_C4R3>;
             bindings = <&kp LG(LC(LA(LSHFT)))>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -596,15 +596,7 @@ behaviors {
         combo_hyper_left_combo {
             key-positions = <POS_LH_C2R3 POS_LH_C4R3>;
             bindings = <&kp LG(LC(LA(LSHFT)))>;
-            layers = <LAYER_Base>;
-            require-prior-idle-ms = <150>;
-        };
-
-        // Caps word combo
-        combo_caps_word {
-            key-positions = <POS_LH_C3R4 POS_LH_C2R4>;
-            bindings = <&caps_word>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -628,7 +620,7 @@ behaviors {
         combo_left_parentheses_combo {
             key-positions = <POS_RH_C2R4 POS_RH_C3R4>;
             bindings = <&lpar_lt>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -636,7 +628,7 @@ behaviors {
         combo_right_parentheses_combo {
             key-positions = <POS_RH_C3R4 POS_RH_C4R4>;
             bindings = <&rpar_gt>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -644,7 +636,7 @@ behaviors {
         combo_tilde_combo {
             key-positions = <POS_LH_C1R4 POS_LH_C1R5>;
             bindings = <&kp LS(GRAVE)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -668,7 +660,7 @@ behaviors {
         combo_hash_combo {
             key-positions = <POS_LH_C3R4 POS_LH_C3R3>;
             bindings = <&kp LS(N3)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
 
@@ -692,7 +684,7 @@ behaviors {
         combo_at_the_rate_combo {
             key-positions = <POS_LH_C4R3 POS_LH_C4R4>;
             bindings = <&kp LS(N2)>;
-            layers = <LAYER_Base>;
+            layers = <LAYER_Base LAYER_Number_hold>;
             require-prior-idle-ms = <150>;
         };
     };
