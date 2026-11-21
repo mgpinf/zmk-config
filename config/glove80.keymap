@@ -414,11 +414,14 @@ ZMK_COMBO(right_bracket,     &kp RBKT,               POS_RH_C3R5 POS_RH_C4R5, LA
 ZMK_COMBO(left_bracket,      &kp LBKT,               POS_RH_C3R5 POS_RH_C2R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(delete,            &kp DEL,                POS_RH_C3R3 POS_RH_C4R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(escape,            &kp ESC,                POS_LH_C4R3 POS_LH_C3R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(tab,               &kp TAB,                POS_LH_C3R4 POS_LH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+ZMK_COMBO(tab,               &hml LG(LCTRL)TAB,      POS_LH_C3R4 POS_LH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+
 /* ZMK_COMBO(hyper_right,    &kp LG(LC(LA(LSHFT))),  POS_RH_C2R3 POS_RH_C4R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST) */
 /* ZMK_COMBO(hyper_left,     &kp LG(LC(LA(LSHFT))),  POS_LH_C2R3 POS_LH_C4R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST) */
-ZMK_COMBO(left_parentheses,  &lpar_lt,               POS_RH_C2R4 POS_RH_C3R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(right_parentheses, &rpar_gt,               POS_RH_C3R4 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(left_parentheses,  &lpar_lt,               POS_RH_C2R4 POS_RH_C3R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RS(RCTRL),    KEYS_L)
+ZMK_COMBO(right_parentheses, &rpar_gt,               POS_RH_C3R4 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RG(RCTRL),    KEYS_L)
 
 /* vertical combos */
 ZMK_COMBO(ampersand,      &kp LS(N7),    POS_RH_C4R3 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
