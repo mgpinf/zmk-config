@@ -38,18 +38,18 @@
 #define CONCAT_(a, b) a##b
 #define CONCAT(a, b) CONCAT_(a, b)
 
-#define ZMK_BEHAVIOR_CORE_tap_dance  \
-    compatible = "zmk,behavior-tap-dance"; \
-    #binding-cells = <0>
-
-#define ZMK_BEHAVIOR(name, type, ...) \
-    name: name { \
-        ZMK_BEHAVIOR_CORE_ ## type; \
-        __VA_ARGS__ \
-    };
-
-#define ZMK_TAP_DANCE(name, ...) \
-    ZMK_BEHAVIOR(name, tap_dance, __VA_ARGS__)
+/* #define ZMK_BEHAVIOR_CORE_tap_dance  \ */
+/*     compatible = "zmk,behavior-tap-dance"; \ */
+/*     #binding-cells = <0> */
+/**/
+/* #define ZMK_BEHAVIOR(name, type, ...) \ */
+/*     name: name { \ */
+/*         ZMK_BEHAVIOR_CORE_ ## type; \ */
+/*         __VA_ARGS__ \ */
+/*     }; */
+/**/
+/* #define ZMK_TAP_DANCE(name, ...) \ */
+/*     ZMK_BEHAVIOR(name, tap_dance, __VA_ARGS__) */
 
 #define ZMK_TD_LAYER(name, layer) \
     ZMK_TAP_DANCE(name, \
@@ -100,11 +100,7 @@
 
 
 /* System behavior and Macros */
-/ {
-    behaviors {
-        ZMK_TD_LAYER(lower, LAYER_Lower)
-    };
-};
+ZMK_TD_LAYER(lower, LAYER_Lower)
 
 / {
     macros {
@@ -320,6 +316,33 @@
 #define POS_RH_C5R6 78
 #define POS_RH_C6R6 79
 
+#define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2)                            \
+  ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
+                bindings = <BINDING1>, <BINDING2>;)
+
+// Tap: comma | Shift + tap: semicolon | Ctrl + shift + tap: <.
+SIMPLE_MORPH(comma_morph, SFT, &kp COMMA, &comma_inner_morph)
+SIMPLE_MORPH(comma_inner_morph, CTL, &kp SEMICOLON, &kp LESS_THAN)
+
+// Tap: dot | Shift + tap: colon | Ctrl + shift + tap: >.
+SIMPLE_MORPH(dot_morph, SFT, &kp DOT, &dot_inner_morph)
+SIMPLE_MORPH(dot_inner_morph, CTL, &kp COLON, &kp GREATER_THAN)
+
+// Tap: qmark | Shift + tap: excl.
+SIMPLE_MORPH(qexcl, SFT, &kp QMARK, &kp EXCL)
+
+// Tap: left/right parenthesis | Shft + tap: less-than/greater-than.
+SIMPLE_MORPH(lpar_lt, SFT, &kp LPAR, &kp LT)
+SIMPLE_MORPH(rpar_gt, SFT, &kp RPAR, &kp GT)
+
+// Tap: space | Shift + tap: dot -> space -> sticky shift | Hold: nav layer.
+ZMK_HOLD_TAP(lt_spc, bindings = <&mo>, <&spc_morph>; flavor = "balanced";
+             tapping-term-ms = <200>; quick-tap-ms = <QUICK_TAP_MS>;)
+SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &dot_spc)
+ZMK_MACRO(dot_spc, bindings = <&kp DOT &kp SPACE &sk LSHFT>; wait-ms = <0>;
+          tap-ms = <5>;)
+
+SIMPLE_MORPH(magic_shift_tap, SFT, &shift_repeat, &caps_word)
 
 /* Custom Defined Behaviors */
 / {
@@ -341,41 +364,6 @@ behaviors {
         bindings = <&kp>, <&osm>;
     };
 
-    ques_excl: question_exclamation {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp QUESTION>, <&kp EXCLAMATION>;
-        mods = <(MOD_LSFT)>;
-    };
-
-    period_col: period_colon {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp PERIOD>, <&kp COLON>;
-        mods = <(MOD_LSFT)>;
-    };
-
-    comma_semicol: comma_semicolon {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp COMMA>, <&kp SEMICOLON>;
-        mods = <(MOD_LSFT)>;
-    };
-
-    lpar_lt: left_parentheses_less_than {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp LPAR>, <&kp LT>;
-        mods = <(MOD_LSFT)>;
-    };
-
-    rpar_gt: right_parentheses_greater_than {
-        compatible = "zmk,behavior-mod-morph";
-        #binding-cells = <0>;
-        bindings = <&kp RPAR>, <&kp GT>;
-        mods = <(MOD_LSFT)>;
-    };
-
     shift_repeat: shift_repeat {
       compatible = "zmk,behavior-adaptive-key";
       #binding-cells = <0>;
@@ -387,13 +375,6 @@ behaviors {
         max-prior-idle-ms = <1200>;
         strict-modifiers;
       };
-    };
-
-    magic_shift_tap: magic_shift_tap {
-      compatible = "zmk,behavior-mod-morph";
-      #binding-cells = <0>;
-      bindings = <&shift_repeat>, <&caps_word>;
-      mods = <(MOD_LSFT)>;
     };
 
     magic_shift: magic_shift {
