@@ -23,6 +23,9 @@
 
 #include "zmk-helpers/helper.h"
 
+// Source desired key-position labels
+#include "zmk-helpers/key-labels/glove80.h"
+
 /* On demand includes */
 
 
@@ -350,23 +353,6 @@ SIMPLE_MORPH(magic_shift_tap, SFT, &shift_repeat, &caps_word)
 /* Custom Defined Behaviors */
 / {
 behaviors {
-    osm: one_shot_modifier {
-        compatible = "zmk,behavior-sticky-key";
-        #binding-cells = <1>;
-        bindings = <&kp>;
-        release-after-ms = <5000>;
-        quick-release;
-        ignore-modifiers;
-    };
-
-    mod_ht: modifier_hold_tap {
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>;
-        flavor = "hold-preferred";
-        tapping-term-ms = <200>;
-        bindings = <&kp>, <&osm>;
-    };
-
     shift_repeat: shift_repeat {
       compatible = "zmk,behavior-adaptive-key";
       #binding-cells = <0>;
@@ -402,57 +388,20 @@ behaviors {
 
 /* Generated input processors */
 
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                 \
+  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";            \
+               tapping-term-ms = <280>; quick-tap-ms = <QUICK_TAP_MS>;         \
+               require-prior-idle-ms = <150>; hold-trigger-on-release;         \
+               hold-trigger-key-positions = <TRIGGER_POS>;)
 
-/* Automatically generated macro definitions */
-/ {
-    macros {
-
-    };
-};
-
-/* Automatically generated behavior definitions */
-/ {
-    behaviors {
+MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS) // Left-hand HRMs.
+MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 
 
-        // Left hand HRMs
-        hml: hml {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <280>;
-            bindings = <&kp>, <&kp>;
-            flavor = "balanced";
-            quick-tap-ms = <QUICK_TAP_MS>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <POS_RH_C1R4 POS_RH_C1R3 POS_RH_C2R3 POS_RH_C3R3 POS_RH_C4R3 POS_RH_C2R4 POS_RH_C3R4 POS_RH_C4R4 POS_RH_C1R5 POS_RH_C2R5 POS_RH_C3R5 POS_RH_C4R5 POS_RH_C5R5 POS_RH_C5R4 POS_RH_C5R3 POS_RH_C6R4 POS_RH_C6R3 POS_RH_T3 POS_RH_T2 POS_RH_T1 POS_RH_T6 POS_RH_T5 POS_RH_T4 POS_RH_C2R6 POS_RH_C3R6 POS_RH_C4R6 POS_RH_C5R6 POS_RH_C6R6 POS_RH_C6R5 POS_RH_C6R1 POS_RH_C6R2 POS_RH_C5R2 POS_RH_C5R1 POS_RH_C4R1 POS_RH_C4R2 POS_RH_C3R2 POS_RH_C3R1 POS_RH_C2R1 POS_RH_C2R2 POS_RH_C1R2>;
-            hold-trigger-on-release;
-        };
-
-        // Right hand HRMs
-        hmr: hmr {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <280>;
-            bindings = <&kp>, <&kp>;
-            flavor = "balanced";
-            quick-tap-ms = <QUICK_TAP_MS>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <POS_LH_C6R1 POS_LH_C5R1 POS_LH_C4R1 POS_LH_C3R1 POS_LH_C2R1 POS_LH_C6R2 POS_LH_C5R2 POS_LH_C4R2 POS_LH_C3R2 POS_LH_C2R2 POS_LH_C1R2 POS_LH_C6R3 POS_LH_C5R3 POS_LH_C4R3 POS_LH_C3R3 POS_LH_C2R3 POS_LH_C1R3 POS_LH_C4R4 POS_LH_C3R4 POS_LH_C2R4 POS_LH_C3R5 POS_LH_C2R5 POS_LH_C6R4 POS_LH_C5R4 POS_LH_C1R4 POS_LH_C6R5 POS_LH_C5R5 POS_LH_C4R5 POS_LH_C1R5 POS_LH_C5R6 POS_LH_C4R6 POS_LH_C3R6 POS_LH_C2R6 POS_LH_T4 POS_LH_C6R6 POS_LH_T1 POS_LH_T2 POS_LH_T3 POS_LH_T5 POS_LH_T6>;
-            hold-trigger-on-release;
-        };
-
-        // Layer hold tap repeat
-        layer_hr: layer_hr {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            bindings = <&mo>, <&kp>;
-            flavor = "tap-preferred";
-            quick-tap-ms = <200>;
-        };
-    };
-};
-
+// Hack: Make HRM combos tap-only (cf, ZMK issue #544).
+#define ZMK_COMBO_8(NAME, TAP, POS, LAYERS, COMBO_MS, IDLE_MS, HOLD, SIDE)     \
+  MAKE_HRM(hm_combo_##NAME, &kp, TAP, SIDE THUMBS)                             \
+  ZMK_COMBO_6(NAME, &hm_combo_##NAME HOLD 0, POS, LAYERS, COMBO_MS, IDLE_MS)
 
 #define COMBO_TERM_FAST 18
 #define COMBO_TERM_SLOW 30
@@ -496,8 +445,8 @@ ZMK_LAYER(layer_Base,
                 &none        &none        &none         &none         &none   &none                                                                                                                                            &none         &none           &none        &none        &none   &none
                 &none        &kp Q        &kp W         &kp F         &kp P   &kp B                                                                                                                                            &kp J         &kp L           &kp U        &kp Y      &kp SQT   &none
                 &none  &hml LALT A  &hml LGUI R  &hml LCTRL S  &hml LSHFT T   &kp G                                                                                                                                            &kp M  &hmr LSHFT N    &hmr LCTRL E  &hmr RGUI I  &hmr LALT O   &none
-                &none        &kp Z        &kp X         &kp C         &kp D   &kp V                        &none    &none  &tog LAYER_Gaming  &kp LGUI                                           &none         &kp LC(SPACE)   &kp K         &kp H    &comma_morph   &dot_morph       &qexcl   &none
- &magic LAYER_Magic 0        &none        &none         &none         &none          &layer_hr LAYER_Lower SPACE  &kp RET            &kp TAB   &kp RET  &smart_num LAYER_Number_hold LAYER_Number_hold  &magic_shift LSHFT 0                 &none           &none        &none        &none   &none
+                &none        &kp Z        &kp X         &kp C         &kp D   &kp V                  &none    &none  &tog LAYER_Gaming  &kp LGUI                                           &none         &kp LC(SPACE)   &kp K         &kp H    &comma_morph   &dot_morph       &qexcl   &none
+ &magic LAYER_Magic 0        &none        &none         &none         &none          &lt_spc LAYER_Lower 0  &kp RET            &kp TAB   &kp RET  &smart_num LAYER_Number_hold LAYER_Number_hold  &magic_shift LSHFT 0                 &none           &none        &none        &none   &none
     )
 
 ZMK_LAYER(layer_Number_hold,
