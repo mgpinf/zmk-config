@@ -502,7 +502,7 @@ ZMK_COMBO(at_the_rate,    &kp LS(N2),    POS_LH_C4R3 POS_LH_C4R4, LAYER_Base LAY
     input-processors = <&zip_xy_scaler 3 1>;
   };
   precision {
-    layers = <FN>;
+    layers = <LAYER_Fn>;
     input-processors = <&zip_xy_scaler 1 2>;
   };
 };
