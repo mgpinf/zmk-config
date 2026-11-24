@@ -606,7 +606,7 @@ ZMK_LAYER(layer_Fn,
  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
     )
 
-ZMK_LAYER(Mouse,
+ZMK_LAYER(layer_Mouse,
  &trans  &trans  &trans  &trans  &trans                                                                  &trans  &trans  &trans  &trans  &trans
  &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
 //      ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
