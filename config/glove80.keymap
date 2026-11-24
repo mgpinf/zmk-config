@@ -74,6 +74,8 @@
 #define LAYER_Nav 3
 #define LAYER_Magic 4
 #define LAYER_Gaming 5
+#define LAYER_Fn 6
+#define LAYER_Mouse 7
 
 /* To deal with the situation where there is no Lower layer, to keep &lower happy */
 #ifndef LAYER_Lower
@@ -403,6 +405,13 @@ ZMK_HOLD_TAP(smart_num, bindings = <&mo>, <&num_dance>; flavor = "balanced";
 ZMK_TAP_DANCE(num_dance, bindings = <&num_word LAYER_Number_hold>, <&sl LAYER_Number_hold>;
               tapping-term-ms = <200>;)
 
+// Smart-mouse, requires tri-state module.
+ZMK_TRI_STATE(
+    smart_mouse, bindings = <&tog LAYER_Mouse>, <&none>, <&tog LAYER_Mouse>;
+    ignored-key-positions =
+        <LT1 LT2 LH0 LH1 RT1 RT2 RT3 RM0 RM1 RM2 RM3 RM4 RB1 RB2 RB3 RH0 RH1>;
+    ignored-layers = <LAYER_Mouse LAYER_Nav LAYER_Fn>;)
+
 /* Generated input processors */
 
 #define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                 \
@@ -444,6 +453,7 @@ ZMK_COMBO(left_parentheses,  &lpar_lt,               POS_RH_C2R4 POS_RH_C3R4, LA
 ZMK_COMBO(right_parentheses, &rpar_gt,               POS_RH_C3R4 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RG(RCTRL),    KEYS_L)
 ZMK_COMBO(less_than,         &kp LT,                 POS_RH_C2R4 POS_RH_C3R4, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(greater_than,      &kp GT,                 POS_RH_C3R4 POS_RH_C4R4, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(mouse,             &smart_mouse,           LT2 LT1,                 LAYER_Base LAYER_Nav LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* vertical combos */
 ZMK_COMBO(ampersand,      &kp LS(N7),    POS_RH_C4R3 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
@@ -465,13 +475,76 @@ ZMK_COMBO(backspace,      &kp BSPC,      POS_RH_C2R3 POS_RH_C3R3, LAYER_Base LAY
 ZMK_COMBO(at_the_rate,    &kp LS(N2),    POS_LH_C4R3 POS_LH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
 
+// Settings tuned for 3840 x 2160 display resolution
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 600 // 600
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20  // 10
+
+#include <dt-bindings/zmk/pointing.h>
+#include <input/processors.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+// Based on @caksoylar's config, defaults in comments
+&mmv {
+  acceleration-exponent = <1>;          // 1
+  time-to-max-speed-ms = <500>;         // 300
+  delay-ms = <0>;                       // 0
+};
+
+&msc {
+  acceleration-exponent = <0>;          // 0
+  time-to-max-speed-ms = <300>;         // 300
+  delay-ms = <0>;                       // 0
+};
+
+&mmv_input_listener {
+  warp {
+    layers = <LAYER_Nav>;
+    input-processors = <&zip_xy_scaler 3 1>;
+  };
+  precision {
+    layers = <FN>;
+    input-processors = <&zip_xy_scaler 1 2>;
+  };
+};
+
+/ {
+  zip_scroll_scaler: zip_scroll_scaler {
+    compatible = "zmk,input-processor-scaler";
+    #input-processor-cells = <2>;
+    type = <INPUT_EV_REL>;
+    codes = <INPUT_REL_WHEEL INPUT_REL_HWHEEL>;
+    track-remainders;
+  };
+};
+
+&msc_input_listener {
+  warp {
+    layers = <LAYER_Nav>;
+    input-processors = <&zip_scroll_scaler 2 1>;
+  };
+  precision {
+    layers = <LAYER_Fn>;
+    input-processors = <&zip_scroll_scaler 1 2>;
+  };
+};
+
+#define U_MS_U &mmv MOVE_UP
+#define U_MS_D &mmv MOVE_DOWN
+#define U_MS_L &mmv MOVE_LEFT
+#define U_MS_R &mmv MOVE_RIGHT
+#define U_WH_U &msc SCRL_UP
+#define U_WH_D &msc SCRL_DOWN
+#define U_WH_L &msc SCRL_LEFT
+#define U_WH_R &msc SCRL_RIGHT
+
+
 ZMK_LAYER(layer_Base,
                 &none        &none        &none         &none         &none                                                                                                                                                                  &none           &none        &none        &none   &none
                 &none        &none        &none         &none         &none   &none                                                                                                                                            &none         &none           &none        &none        &none   &none
                 &none        &kp Q        &kp W         &kp F         &kp P   &kp B                                                                                                                                            &kp J         &kp L           &kp U        &kp Y      &kp SQT   &none
                 &none  &hml LALT A  &hml LGUI R  &hml LCTRL S  &hml LSHFT T   &kp G                                                                                                                                            &kp M  &hmr LSHFT N    &hmr LCTRL E  &hmr RGUI I  &hmr LALT O   &none
-                &none        &kp Z        &kp X         &kp C         &kp D   &kp V                  &none    &none  &tog LAYER_Gaming  &kp LGUI                                           &none         &kp LC(SPACE)   &kp K         &kp H    &comma_morph   &dot_morph       &qexcl   &none
- &magic LAYER_Magic 0        &none        &none         &none         &none            &lt_spc LAYER_Nav 0  &kp RET            &kp TAB   &kp RET  &smart_num LAYER_Number_hold LAYER_Number_hold  &magic_shift LSHFT 0                 &none           &none        &none        &none   &none
+                &none        &kp Z        &kp X         &kp C         &kp D   &kp V                  &none             &none  &tog LAYER_Gaming  &kp LGUI                                           &none         &kp LC(SPACE)   &kp K         &kp H    &comma_morph   &dot_morph       &qexcl   &none
+ &magic LAYER_Magic 0        &none        &none         &none         &none            &lt_spc LAYER_Nav 0  &lt LAYER_Fn RET            &kp TAB   &kp RET  &smart_num LAYER_Number_hold LAYER_Number_hold  &magic_shift LSHFT 0                 &none           &none        &none        &none   &none
     )
 
 ZMK_LAYER(layer_Number_hold,
@@ -523,3 +596,26 @@ ZMK_LAYER(layer_Gaming,
                &trans   &none           &none           &none            &none   &none  &trans  &trans  &tog LAYER_Gaming  &trans     &trans  &trans   &none      &none      &none     &none   &none   &none
  &magic LAYER_Magic 0   &none           &none           &none            &none          &trans  &trans             &trans  &trans  &kp SPACE  &kp N0              &none      &none     &none   &none   &none
     )
+
+ZMK_LAYER(layer_Fn,
+ &trans  &trans  &trans  &trans  &trans                                                                  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
+    )
+
+ZMK_LAYER(Mouse,
+ &trans  &trans  &trans  &trans  &trans                                                                  &trans  &trans  &trans  &trans  &trans
+ &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
+//      ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+&trans    &none         &none         &none         &none         &none           &none         &kp PG_UP     U_MS_U         &kp PG_DN    &none          &trans
+//      ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+&trans    &none         &none         &none         &none         &none           U_WH_L        U_MS_L        U_MS_D         U_MS_R       U_WH_R         &trans
+//      ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+&trans    &none         &none         &none         &none         &none           &trans  &trans  &trans  &trans  &trans  &trans  &none         &mkp LCLK     &mkp MCLK      &mkp RCLK    &none          &trans
+//      ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+          &none         &none         &none         &none         &none           &trans  &trans  &trans  &trans  &trans  &trans  U_WH_U        U_WH_D        &none         &none         &none
+//                                                ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
