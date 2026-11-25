@@ -453,7 +453,7 @@ ZMK_COMBO(left_parentheses,  &lpar_lt,               POS_RH_C2R4 POS_RH_C3R4, LA
 ZMK_COMBO(right_parentheses, &rpar_gt,               POS_RH_C3R4 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RG(RCTRL),    KEYS_L)
 ZMK_COMBO(less_than,         &kp LT,                 POS_RH_C2R4 POS_RH_C3R4, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(greater_than,      &kp GT,                 POS_RH_C3R4 POS_RH_C4R4, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(mouse,             &smart_mouse,           LT2 LT1,                 LAYER_Base LAYER_Nav LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(mouse,             &smart_mouse,           LT2 LT1,                 LAYER_Base LAYER_Nav LAYER_Fn, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* vertical combos */
 ZMK_COMBO(ampersand,      &kp LS(N7),    POS_RH_C4R3 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
