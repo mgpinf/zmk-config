@@ -14,9 +14,8 @@
 #define LAYER_Number_hold 1
 #define LAYER_Nav 2
 #define LAYER_Magic 3
-#define LAYER_Gaming 4
-#define LAYER_Fn 5
-#define LAYER_Mouse 6
+#define LAYER_Fn 4
+#define LAYER_Mouse 5
 
 #define QUICK_TAP_MS 175
 
@@ -271,7 +270,7 @@ ZMK_LAYER(layer_Base,
                 &none        &none        &none         &none         &none   &none                                                                                                                                            &none         &none           &none        &none        &none   &none
                 &none        &kp Q        &kp W         &kp F         &kp P   &kp B                                                                                                                                            &kp J         &kp L           &kp U        &kp Y      &kp SQT   &none
                 &none  &hml LALT A  &hml LGUI R  &hml LCTRL S  &hml LSHFT T   &kp G                                                                                                                                            &kp M  &hmr LSHFT N    &hmr LCTRL E  &hmr RGUI I  &hmr LALT O   &none
-                &none        &kp Z        &kp X         &kp C         &kp D   &kp V                  &none             &none  &tog LAYER_Gaming  &kp LGUI                                           &none         &kp LC(SPACE)   &kp K         &kp H    &comma_morph   &dot_morph       &qexcl   &none
+                &none        &kp Z        &kp X         &kp C         &kp D   &kp V                  &none             &none              &none  &kp LGUI                                           &none         &kp LC(SPACE)   &kp K         &kp H    &comma_morph   &dot_morph       &qexcl   &none
  &magic LAYER_Magic 0        &none        &none         &none         &none            &lt_spc LAYER_Nav 0  &lt LAYER_Fn RET            &kp TAB   &kp RET  &smart_num LAYER_Number_hold LAYER_Number_hold  &magic_shift LSHFT 0                 &none           &none        &none        &none   &none
     )
 
@@ -305,15 +304,6 @@ ZMK_LAYER(layer_Magic,
  &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none     &bootloader
   &sys_reset            &none            &none            &none            &none            &none   &bt_2   &bt_3         &none   &none   &none   &none   &none   &none   &none   &none   &none      &sys_reset
        &none            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &none
-    )
-
-ZMK_LAYER(layer_Gaming,
-                &none   &none           &none           &none            &none                                                                                    &none      &none     &none   &none   &none
-               &trans   &none           &none           &none            &none   &none                                                                 &none      &none      &none     &none   &none   &none
-               &trans   &none           &none    &kp UP_ARROW            &none   &none                                                                 &none      &none      &none     &none   &none   &none
-               &trans   &none  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW   &none                                                                 &none  &kp LSHFT  &kp LCTRL  &kp LALT   &none   &none
-               &trans   &none           &none           &none            &none   &none  &trans  &trans  &tog LAYER_Gaming  &trans     &trans  &trans   &none      &none      &none     &none   &none   &none
- &magic LAYER_Magic 0   &none           &none           &none            &none          &trans  &trans             &trans  &trans  &kp SPACE  &kp N0              &none      &none     &none   &none   &none
     )
 
 ZMK_LAYER(layer_Fn,
