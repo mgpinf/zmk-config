@@ -280,50 +280,7 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
   MAKE_HRM(hm_combo_##NAME, &kp, TAP, SIDE THUMBS)                             \
   ZMK_COMBO_6(NAME, &hm_combo_##NAME HOLD 0, POS, LAYERS, COMBO_MS, IDLE_MS)
 
-#define COMBO_TERM_FAST 18
-#define COMBO_TERM_SLOW 30
-
-#define COMBO_IDLE_FAST 150
-#define COMBO_IDLE_SLOW 50
-
-/* horizontal combos */
-ZMK_COMBO(right_bracket,     &kp RBKT,               RB2 RB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(left_bracket,      &kp LBKT,               RB1 RB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(right_brace,       &kp RBRC,               RB2 RB3, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(left_brace,        &kp LBRC,               RB1 RB2, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(delete,            &kp DEL,                RT2 RT3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(escape,            &kp ESC,                LT3 LT2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-
-ZMK_COMBO(tab,               &hml LG(LCTRL)TAB,      LM3 LM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-
-
-/* ZMK_COMBO(hyper_right,    &kp LG(LC(LA(LSHFT))),  POS_RH_C2R3 POS_RH_C4R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST) */
-/* ZMK_COMBO(hyper_left,     &kp LG(LC(LA(LSHFT))),  POS_LH_C2R3 POS_LH_C4R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST) */
-ZMK_COMBO(left_parentheses,  &lpar_lt,               RM1 RM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RS(RCTRL),    KEYS_L)
-ZMK_COMBO(right_parentheses, &rpar_gt,               RM2 RM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RG(RCTRL),    KEYS_L)
-ZMK_COMBO(less_than,         &kp LT,                 RM1 RM2, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(greater_than,      &kp GT,                 RM2 RM3, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(mouse,             &smart_mouse,           LT2 LT1,                 LAYER_Base LAYER_Nav LAYER_Fn, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(backspace,         &kp BSPC,               RT1 RT2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-
-/* vertical combos */
-ZMK_COMBO(ampersand,      &kp LS(N7),    RT3 RM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(backward_slash, &kp BSLH,      LM2 LB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(caret,          &kp LS(N6),    RT0 RM0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(dollar,         &kp LS(N4),    LT1 LM1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(equal,          &kp EQUAL,     LM1 LB1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(grave,          &kp GRAVE,     LM3 LB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(percentage,     &kp LS(N5),    LT0 LM0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(pipe,           &kp LS(BSLH),  RM3 RB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(underscore,     &kp LS(MINUS), RM0 RB0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(forward_slash,  &kp FSLH,      RM2 RB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(plus,           &kp LS(EQUAL), RT1 RM1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(tilde,          &kp LS(GRAVE), LM0 LB0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(minus,          &kp MINUS,     RM1 RB1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(multiplication, &kp LS(N8),    RT2 RM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(hash,           &kp LS(N3),    LT2 LM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(at_the_rate,    &kp LS(N2),    LT3 LM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-
+#include "combos.dtsi" // Must be sourced after HRM-combo hack.
 
 // Settings tuned for 3840 x 2160 display resolution
 #define ZMK_POINTING_DEFAULT_MOVE_VAL 600 // 600
