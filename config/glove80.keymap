@@ -174,93 +174,9 @@ ZMK_TD_LAYER(lower, LAYER_Lower)
     };
 };
 
-
-/* Key positions */
-
-#define POS_LH_C6R1 0
-#define POS_LH_C5R1 1
-#define POS_LH_C4R1 2
-#define POS_LH_C3R1 3
-#define POS_LH_C2R1 4
-#define POS_RH_C2R1 5
-#define POS_RH_C3R1 6
-#define POS_RH_C4R1 7
-#define POS_RH_C5R1 8
-#define POS_RH_C6R1 9
-#define POS_LH_C6R2 10
-#define POS_LH_C5R2 11
-#define POS_LH_C4R2 12
-#define POS_LH_C3R2 13
-#define POS_LH_C2R2 14
-#define POS_LH_C1R2 15
-#define POS_RH_C1R2 16
-#define POS_RH_C2R2 17
-#define POS_RH_C3R2 18
-#define POS_RH_C4R2 19
-#define POS_RH_C5R2 20
-#define POS_RH_C6R2 21
-#define POS_LH_C6R3 22
-#define POS_LH_C5R3 23
-#define POS_LH_C4R3 24
-#define POS_LH_C3R3 25
-#define POS_LH_C2R3 26
-#define POS_LH_C1R3 27
-#define POS_RH_C1R3 28
-#define POS_RH_C2R3 29
-#define POS_RH_C3R3 30
-#define POS_RH_C4R3 31
-#define POS_RH_C5R3 32
-#define POS_RH_C6R3 33
-#define POS_LH_C6R4 34
-#define POS_LH_C5R4 35
-#define POS_LH_C4R4 36
-#define POS_LH_C3R4 37
-#define POS_LH_C2R4 38
-#define POS_LH_C1R4 39
-#define POS_RH_C1R4 40
-#define POS_RH_C2R4 41
-#define POS_RH_C3R4 42
-#define POS_RH_C4R4 43
-#define POS_RH_C5R4 44
-#define POS_RH_C6R4 45
-#define POS_LH_C6R5 46
-#define POS_LH_C5R5 47
-#define POS_LH_C4R5 48
-#define POS_LH_C3R5 49
-#define POS_LH_C2R5 50
-#define POS_LH_C1R5 51
-#define POS_LH_T1 52
-#define POS_LH_T2 53
-#define POS_LH_T3 54
-#define POS_RH_T3 55
-#define POS_RH_T2 56
-#define POS_RH_T1 57
-#define POS_RH_C1R5 58
-#define POS_RH_C2R5 59
-#define POS_RH_C3R5 60
-#define POS_RH_C4R5 61
-#define POS_RH_C5R5 62
-#define POS_RH_C6R5 63
-#define POS_LH_C6R6 64
-#define POS_LH_C5R6 65
-#define POS_LH_C4R6 66
-#define POS_LH_C3R6 67
-#define POS_LH_C2R6 68
-#define POS_LH_T4 69
-#define POS_LH_T5 70
-#define POS_LH_T6 71
-#define POS_RH_T6 72
-#define POS_RH_T5 73
-#define POS_RH_T4 74
-#define POS_RH_C2R6 75
-#define POS_RH_C3R6 76
-#define POS_RH_C4R6 77
-#define POS_RH_C5R6 78
-#define POS_RH_C6R6 79
-
 // Alt+Tab swapper, requires tri-state module.
 ZMK_TRI_STATE(swapper, bindings = <&kt LALT>, <&kp TAB>, <&kt LALT>;
-              ignored-key-positions = <POS_LH_C3R3 POS_RH_C3R3 POS_RH_C2R4 POS_RH_C3R4 POS_RH_C4R4>;)
+              ignored-key-positions = <LT2 RT2 RM1 RM2 RM3>;)
 
 #define SIMPLE_MORPH(NAME, MOD, BINDING1, BINDING2)                            \
   ZMK_MOD_MORPH(NAME, mods = <(MOD_L##MOD | MOD_R##MOD)>;                      \
@@ -371,42 +287,42 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 #define COMBO_IDLE_SLOW 50
 
 /* horizontal combos */
-ZMK_COMBO(right_bracket,     &kp RBKT,               POS_RH_C3R5 POS_RH_C4R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(left_bracket,      &kp LBKT,               POS_RH_C3R5 POS_RH_C2R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(right_brace,       &kp RBRC,               POS_RH_C3R5 POS_RH_C4R5, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(left_brace,        &kp LBRC,               POS_RH_C3R5 POS_RH_C2R5, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(delete,            &kp DEL,                POS_RH_C3R3 POS_RH_C4R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(escape,            &kp ESC,                POS_LH_C4R3 POS_LH_C3R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(right_bracket,     &kp RBKT,               RB2 RB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(left_bracket,      &kp LBKT,               RB1 RB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(right_brace,       &kp RBRC,               RB2 RB3, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(left_brace,        &kp LBRC,               RB1 RB2, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(delete,            &kp DEL,                RT2 RT3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(escape,            &kp ESC,                LT3 LT2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
-ZMK_COMBO(tab,               &hml LG(LCTRL)TAB,      POS_LH_C3R4 POS_LH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(tab,               &hml LG(LCTRL)TAB,      LM3 LM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 
 /* ZMK_COMBO(hyper_right,    &kp LG(LC(LA(LSHFT))),  POS_RH_C2R3 POS_RH_C4R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST) */
 /* ZMK_COMBO(hyper_left,     &kp LG(LC(LA(LSHFT))),  POS_LH_C2R3 POS_LH_C4R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST) */
-ZMK_COMBO(left_parentheses,  &lpar_lt,               POS_RH_C2R4 POS_RH_C3R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RS(RCTRL),    KEYS_L)
-ZMK_COMBO(right_parentheses, &rpar_gt,               POS_RH_C3R4 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RG(RCTRL),    KEYS_L)
-ZMK_COMBO(less_than,         &kp LT,                 POS_RH_C2R4 POS_RH_C3R4, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(greater_than,      &kp GT,                 POS_RH_C3R4 POS_RH_C4R4, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(left_parentheses,  &lpar_lt,               RM1 RM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RS(RCTRL),    KEYS_L)
+ZMK_COMBO(right_parentheses, &rpar_gt,               RM2 RM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RG(RCTRL),    KEYS_L)
+ZMK_COMBO(less_than,         &kp LT,                 RM1 RM2, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(greater_than,      &kp GT,                 RM2 RM3, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 ZMK_COMBO(mouse,             &smart_mouse,           LT2 LT1,                 LAYER_Base LAYER_Nav LAYER_Fn, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* vertical combos */
-ZMK_COMBO(ampersand,      &kp LS(N7),    POS_RH_C4R3 POS_RH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(backward_slash, &kp BSLH,      POS_LH_C3R5 POS_LH_C3R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(caret,          &kp LS(N6),    POS_RH_C1R3 POS_RH_C1R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(dollar,         &kp LS(N4),    POS_LH_C2R4 POS_LH_C2R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(equal,          &kp EQUAL,     POS_LH_C2R4 POS_LH_C2R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(grave,          &kp GRAVE,     POS_LH_C4R4 POS_LH_C4R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(percentage,     &kp LS(N5),    POS_LH_C1R3 POS_LH_C1R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(pipe,           &kp LS(BSLH),  POS_RH_C4R4 POS_RH_C4R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(underscore,     &kp LS(MINUS), POS_RH_C1R4 POS_RH_C1R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(forward_slash,  &kp FSLH,      POS_RH_C3R4 POS_RH_C3R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(plus,           &kp LS(EQUAL), POS_RH_C2R4 POS_RH_C2R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(tilde,          &kp LS(GRAVE), POS_LH_C1R4 POS_LH_C1R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(minus,          &kp MINUS,     POS_RH_C2R4 POS_RH_C2R5, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(multiplication, &kp LS(N8),    POS_RH_C3R3 POS_RH_C3R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(hash,           &kp LS(N3),    POS_LH_C3R4 POS_LH_C3R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(backspace,      &kp BSPC,      POS_RH_C2R3 POS_RH_C3R3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(at_the_rate,    &kp LS(N2),    POS_LH_C4R3 POS_LH_C4R4, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(ampersand,      &kp LS(N7),    RT3 RM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(backward_slash, &kp BSLH,      LM2 LB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(caret,          &kp LS(N6),    RT0 RM0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(dollar,         &kp LS(N4),    LT1 LM1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(equal,          &kp EQUAL,     LM1 LB1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(grave,          &kp GRAVE,     LM3 LB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(percentage,     &kp LS(N5),    LT0 LM0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(pipe,           &kp LS(BSLH),  RM3 RB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(underscore,     &kp LS(MINUS), RM0 RB0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(forward_slash,  &kp FSLH,      RM2 RB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(plus,           &kp LS(EQUAL), RT1 RM1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(tilde,          &kp LS(GRAVE), LM0 LB0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(minus,          &kp MINUS,     RM1 RB1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(multiplication, &kp LS(N8),    RT2 RM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(hash,           &kp LS(N3),    LT2 LM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(backspace,      &kp BSPC,      RT1 RT2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(at_the_rate,    &kp LS(N2),    LT3 LM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
 
 // Settings tuned for 3840 x 2160 display resolution
