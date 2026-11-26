@@ -9,13 +9,18 @@
 #include "zmk-helpers/helper.h"
 #include "zmk-helpers/key-labels/glove80.h"
 
-/* Automatically generated layer name defines */
-#define LAYER_Base 0
-#define LAYER_Number_hold 1
-#define LAYER_Nav 2
-#define LAYER_Magic 3
-#define LAYER_Fn 4
-#define LAYER_Mouse 5
+#define DEF 0
+#define NAV 1
+#define FN 2
+#define NUM 3
+#define SYS 4
+#define MOUSE 5
+
+#define XXX &none
+#define ___ &trans
+
+#define _BT_SEL_KEYS_                                                        \
+      &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
 
 #define QUICK_TAP_MS 175
 
@@ -37,123 +42,6 @@
 
 &caps_word { // Mods deactivate caps-word, requires PR #1451. [TODO: rebase]
   /delete-property/ ignore-modifiers;
-};
-
-/ {
-#ifdef BT_DISC_CMD
-    behaviors {
-        bt_0: bt_0 {
-            compatible = "zmk,behavior-tap-dance";
-            label = "BT_0";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&bt_select_0>, <&bt BT_DISC 0>;
-        };
-        bt_1: bt_1 {
-            compatible = "zmk,behavior-tap-dance";
-            label = "BT_1";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&bt_select_1>, <&bt BT_DISC 1>;
-        };
-        bt_2: bt_2 {
-            compatible = "zmk,behavior-tap-dance";
-            label = "BT_2";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&bt_select_2>, <&bt BT_DISC 2>;
-        };
-        bt_3: bt_3 {
-            compatible = "zmk,behavior-tap-dance";
-            label = "BT_3";
-            #binding-cells = <0>;
-            tapping-term-ms = <200>;
-            bindings = <&bt_select_3>, <&bt BT_DISC 3>;
-        };
-    };
-    macros {
-        bt_select_0: bt_select_0 {
-            label = "BT_SELECT_0";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 0>;
-        };
-        bt_select_1: bt_select_1 {
-            label = "BT_SELECT_1";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 1>;
-        };
-        bt_select_2: bt_select_2 {
-            label = "BT_SELECT_2";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 2>;
-        };
-        bt_select_3: bt_select_3 {
-            label = "BT_SELECT_3";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 3>;
-        };
-    };
-#else
-    macros {
-        bt_0: bt_0 {
-            label = "BT_0";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 0>;
-        };
-        bt_1: bt_1 {
-            label = "BT_1";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 1>;
-        };
-        bt_2: bt_2 {
-            label = "BT_2";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 2>;
-        };
-        bt_3: bt_3 {
-            label = "BT_3";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 3>;
-        };
-    };
-#endif
-};
-
-/ {
-    behaviors {
-        magic: magic {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MAGIC_HOLD_TAP";
-            #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <200>;
-            bindings = <&mo>, <&none>;
-        };
-    };
 };
 
 // Alt+Tab swapper, requires tri-state module.
@@ -216,6 +104,7 @@ ZMK_HOLD_TAP(mt_end, bindings = <&masked_end>, <&kp>; MT_CORE)
 MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
 MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
 
+#define MAGIC_SHIFT &magic_shift LSHFT 0
 ZMK_HOLD_TAP(magic_shift, bindings = <&kp>, <&magic_shift_tap>;
              flavor = "balanced"; tapping-term-ms = <200>;
              quick-tap-ms = <QUICK_TAP_MS>;)
@@ -231,18 +120,19 @@ ZMK_ADAPTIVE_KEY(
     };)
 
 
+#define SMART_NUM &smart_num NUM 0
 // Tap: num-word | double-tap: sticky num-layer | Hold: num-layer.
 ZMK_HOLD_TAP(smart_num, bindings = <&mo>, <&num_dance>; flavor = "balanced";
              tapping-term-ms = <200>; quick-tap-ms = <QUICK_TAP_MS>;)
-ZMK_TAP_DANCE(num_dance, bindings = <&num_word LAYER_Number_hold>, <&sl LAYER_Number_hold>;
+ZMK_TAP_DANCE(num_dance, bindings = <&num_word NUM>, <&sl NUM>;
               tapping-term-ms = <200>;)
 
 // Smart-mouse, requires tri-state module.
 ZMK_TRI_STATE(
-    smart_mouse, bindings = <&tog LAYER_Mouse>, <&none>, <&tog LAYER_Mouse>;
+    smart_mouse, bindings = <&tog MOUSE>, <&none>, <&tog MOUSE>;
     ignored-key-positions =
         <LT1 LT2 LH1 LH2 RT1 RT2 RT3 RM0 RM1 RM2 RM3 RM4 RB1 RB2 RB3 RH1 RH2>;
-    ignored-layers = <LAYER_Mouse LAYER_Nav LAYER_Fn>;)
+    ignored-layers = <MOUSE NAV FN>;)
 
 /* Generated input processors */
 
@@ -265,66 +155,86 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 #include "combos.dtsi" // Must be sourced after HRM-combo hack.
 #include "mouse.dtsi"
 
-ZMK_LAYER(layer_Base,
-                &none        &none        &none         &none         &none                                                                                                                                                                  &none           &none        &none        &none   &none
-                &none        &none        &none         &none         &none   &none                                                                                                                                            &none         &none           &none        &none        &none   &none
-                &none        &kp Q        &kp W         &kp F         &kp P   &kp B                                                                                                                                            &kp J         &kp L           &kp U        &kp Y      &kp SQT   &none
-                &none  &hml LALT A  &hml LGUI R  &hml LCTRL S  &hml LSHFT T   &kp G                                                                                                                                            &kp M  &hmr LSHFT N    &hmr LCTRL E  &hmr RGUI I  &hmr LALT O   &none
-                &none        &kp Z        &kp X         &kp C         &kp D   &kp V                  &none             &none              &none  &kp LGUI                                           &none         &kp LC(SPACE)   &kp K         &kp H    &comma_morph   &dot_morph       &qexcl   &none
- &magic LAYER_Magic 0        &none        &none         &none         &none            &lt_spc LAYER_Nav 0  &lt LAYER_Fn RET            &kp TAB   &kp RET  &smart_num LAYER_Number_hold LAYER_Number_hold  &magic_shift LSHFT 0                 &none           &none        &none        &none   &none
-    )
+#define ZMK_BASE_LAYER(name, LT, RT, LM, RM, LB, RB, LH, RH)                                      \
+    ZMK_LAYER(                                                                                    \
+        name,                                                                                     \
+        &kp F1    &kp F2 &kp F3 &kp F4 &kp F5               &kp F6 &kp F7 &kp F8 &kp F9 &kp F10   \
+        &kp EQUAL &kp N1 &kp N2 &kp N3 &kp N4 &kp N5 &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS \
+        &kp TAB              LT                                            RT           &kp BSPC  \
+        &kp ESC              LM                                            RM           &none     \
+        &none                LB &none  &none  &none  &none  &none &none    RB           &none     \
+                                &none  &none &none                                                \
+        &kp LEFT  &kp RIGHT  LH &none                             &none    RH    &kp UP &kp DOWN  \
+                                                     &none  &none &none)
 
-ZMK_LAYER(layer_Number_hold,
- &trans  &trans  &trans  &trans  &trans                                                                  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &kp N7  &kp N8  &kp N9  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &kp N0  &kp N4  &kp N5  &kp N6  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &kp N1  &kp N2  &kp N3  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
-    )
-
-ZMK_LAYER(layer_Nav,
- &trans  &trans  &trans  &trans  &trans                                                                  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
-//          ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-   &trans     &kp LA(F4)    &none         &kp LS(TAB)   &swapper      &none           &kp PG_UP     NAV_BSPC      NAV_UP        NAV_DEL       &none           &trans
-//          ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-   &trans     &sk LGUI      &sk LALT      &sk LSHFT     &sk LCTRL     &none           &kp PG_DN     NAV_LEFT      NAV_DOWN      NAV_RIGHT     &kp RET         &trans
-//          ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-   &trans     &none         &none         &none         &none         &none        &trans  &trans  &trans  &trans  &trans  &trans   &kp INS       &kp TAB       &none         &none         &none           &trans
-//          ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
-              &none         &none         &none         &none         &none       &trans  &trans  &trans  &trans  &trans  &trans    &none         CANCEL        &none         &none         &none
-//                                                    ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+ZMK_BASE_LAYER(Base,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    &kp Q         &kp W         &kp F         &kp P         &kp B       ,   &kp J         &kp L         &kp U         &kp Y         &kp SQT     ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &hml LALT A   &hml LGUI R   &hml LCTRL S  &hml LSHFT T  &kp G       ,   &kp M         &hmr LSHFT N  &hmr LCTRL E  &hmr LGUI I   &hmr LALT O ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &kp Z         &kp X         &kp C         &kp D         &kp V       ,   &kp K         &kp H         &comma_morph  &dot_morph    &qexcl      ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              &lt_spc NAV 0 &lt FN RET  ,   SMART_NUM     MAGIC_SHIFT
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
 )
 
-ZMK_LAYER(layer_Magic,
-  &bt BT_CLR            &none            &none            &none            &none                                                                                  &none   &none   &none   &none  &bt BT_CLR_ALL
-       &none            &none            &none            &none            &none            &none                                                         &none   &none   &none   &none   &none           &none
-       &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                         &none   &none   &none   &none   &none           &none
- &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none     &bootloader
-  &sys_reset            &none            &none            &none            &none            &none   &bt_2   &bt_3         &none   &none   &none   &none   &none   &none   &none   &none   &none      &sys_reset
-       &none            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &none
-    )
+ZMK_BASE_LAYER(Nav,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    &kp LA(F4)    ___           &kp LS(TAB)   &swapper      ___         ,   &kp PG_UP     NAV_BSPC      NAV_UP        NAV_DEL       ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &sk LALT      &sk LGUI      &sk LCTRL     &sk LSHFT     ___         ,   &kp PG_DN     NAV_LEFT      NAV_DOWN      NAV_RIGHT     &kp RET     ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___           ___           ___           ___           ___         ,   &kp INS       &kp TAB       ___           ___           ___         ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              ___           ___         ,   ___           CANCEL
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
 
-ZMK_LAYER(layer_Fn,
- &trans  &trans  &trans  &trans  &trans                                                                  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
-    )
+ZMK_BASE_LAYER(Fn,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    &kp F12       &kp F7        &kp F8        &kp F9        ___         ,   ___           ___           ___           ___           ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &kp F11       &kp F4        &kp F5        &kp F6        ___         ,   ___           ___           ___           ___           ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &kp F10       &kp F1        &kp F2        &kp F3        ___         ,   ___           ___           ___           ___           ___         ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              ___           ___         ,   ___           ___
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
 
-ZMK_LAYER(layer_Mouse,
- &trans  &trans  &trans  &trans  &trans                                                                  &trans  &trans  &trans  &trans  &trans
- &trans  &trans  &trans  &trans  &trans  &trans                                                  &trans  &trans  &trans  &trans  &trans  &trans
-//      ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
-&trans    &none         &none         &none         &none         &none           &none         &kp PG_UP     U_MS_U         &kp PG_DN    &none          &trans
-//      ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-&trans    &none         &none         &none         &none         &none           U_WH_L        U_MS_L        U_MS_D         U_MS_R       U_WH_R         &trans
-//      ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-&trans    &none         &none         &none         &none         &none           &trans  &trans  &trans  &trans  &trans  &trans  &none         &mkp LCLK     &mkp MCLK      &mkp RCLK    &none          &trans
-//      ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
-          &none         &none         &none         &none         &none           &trans  &trans  &trans  &trans  U_WH_U  U_WH_D  &none  &none      &none         &none         &none
-//                                                ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+ZMK_BASE_LAYER(Num,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    ___           &kp N7        &kp N8        &kp N9        ___         ,   ___           ___           ___           ___           ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    &kp N0        &kp N4        &kp N5        &kp N6        ___         ,   ___           ___           ___           ___           ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___           &kp N1        &kp N2        &kp N3        ___         ,   ___           ___           ___           ___           ___         ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              ___           ___         ,   ___           ___
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
+
+ZMK_BASE_LAYER(Sys,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+                               _BT_SEL_KEYS_                            ,   ___           ___           ___           ___           ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___           ___           ___           ___           &bootloader ,   &bootloader   ___           ___           ___           ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___           ___           ___           ___           &sys_reset  ,   &sys_reset    ___           ___           ___           ___         ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              ___           ___         ,   ___           ___
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
+)
+
+ZMK_BASE_LAYER(Mouse,
+//╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+    ___           ___           ___           ___           ___         ,   ___           &kp PG_UP     U_MS_U         &kp PG_DN    ___         ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___           ___           ___           ___           ___         ,   U_WH_L        U_MS_L        U_MS_D         U_MS_R       U_WH_R      ,
+//├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+    ___           ___           ___           ___           ___         ,   ___           &mkp LCLK     &mkp MCLK      &mkp RCLK    ___         ,
+//╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯
+                                              ___           ___         ,   U_WH_U        U_WH_D
+//                                          ╰─────────────┴─────────────╯ ╰─────────────┴─────────────╯
 )

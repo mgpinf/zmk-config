@@ -5,44 +5,44 @@
 #define COMBO_IDLE_SLOW 50
 
 /* Horizontal combos - left hand */
-ZMK_COMBO(escape,            &kp ESC,                LT3 LT2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(mouse,             &smart_mouse,           LT2 LT1,                 LAYER_Base LAYER_Nav LAYER_Fn, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(escape,            &kp ESC,                LT3 LT2, DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(mouse,             &smart_mouse,           LT2 LT1, DEF NAV NUM FN, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 // Combos overlapping HRMs are set up as hold-taps themselves to allow for instantaneous chording of mods. Custom hold-tap instances can be bootstrapped on the go using the 8-argument version of ZMK_COMBO
-ZMK_COMBO(tab,               &hml LG(LCTRL)TAB,      LM3 LM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(tab,               &hml LG(LCTRL)TAB,      LM3 LM2, DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* Horizontal combos - right hand */
-ZMK_COMBO(backspace,         &kp BSPC,               RT1 RT2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(delete,            &kp DEL,                RT2 RT3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(backspace,         &kp BSPC,               RT1 RT2, DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(delete,            &kp DEL,                RT2 RT3, DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
-ZMK_COMBO(left_parentheses,  &lpar_lt,               RM1 RM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RS(RCTRL),    KEYS_L)
-ZMK_COMBO(right_parentheses, &rpar_gt,               RM2 RM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST, RG(RCTRL),    KEYS_L)
-ZMK_COMBO(less_than,         &kp LT,                 RM1 RM2, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(greater_than,      &kp GT,                 RM2 RM3, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(left_parentheses,  &lpar_lt,               RM1 RM2, DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST, RS(RCTRL),    KEYS_L)
+ZMK_COMBO(right_parentheses, &rpar_gt,               RM2 RM3, DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST, RG(RCTRL),    KEYS_L)
+ZMK_COMBO(less_than,         &kp LT,                 RM1 RM2,     NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(greater_than,      &kp GT,                 RM2 RM3,     NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
-ZMK_COMBO(right_bracket,     &kp RBKT,               RB2 RB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(left_bracket,      &kp LBKT,               RB1 RB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(right_brace,       &kp RBRC,               RB2 RB3, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
-ZMK_COMBO(left_brace,        &kp LBRC,               RB1 RB2, LAYER_Nav, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(right_bracket,     &kp RBKT,               RB2 RB3, DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(left_bracket,      &kp LBKT,               RB1 RB2, DEF     NUM LAYER_Number_hold, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(right_brace,       &kp RBRC,               RB2 RB3,     NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
+ZMK_COMBO(left_brace,        &kp LBRC,               RB1 RB2,     NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
 
 /* Vertical combos - left hand */
-ZMK_COMBO(at_the_rate,    &kp LS(N2),    LT3 LM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(hash,           &kp LS(N3),    LT2 LM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(dollar,         &kp LS(N4),    LT1 LM1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(percentage,     &kp LS(N5),    LT0 LM0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(at_the_rate,    &kp LS(N2),    LT3 LM3, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(hash,           &kp LS(N3),    LT2 LM2, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(dollar,         &kp LS(N4),    LT1 LM1, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(percentage,     &kp LS(N5),    LT0 LM0, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
-ZMK_COMBO(grave,          &kp GRAVE,     LM3 LB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(backward_slash, &kp BSLH,      LM2 LB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(equal,          &kp EQUAL,     LM1 LB1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(tilde,          &kp LS(GRAVE), LM0 LB0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(grave,          &kp GRAVE,     LM3 LB3, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(backward_slash, &kp BSLH,      LM2 LB2, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(equal,          &kp EQUAL,     LM1 LB1, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(tilde,          &kp LS(GRAVE), LM0 LB0, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
 /* Vertical combos - right hand */
-ZMK_COMBO(caret,          &kp LS(N6),    RT0 RM0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(plus,           &kp LS(EQUAL), RT1 RM1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(multiplication, &kp LS(N8),    RT2 RM2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(ampersand,      &kp LS(N7),    RT3 RM3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(caret,          &kp LS(N6),    RT0 RM0, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(plus,           &kp LS(EQUAL), RT1 RM1, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(multiplication, &kp LS(N8),    RT2 RM2, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(ampersand,      &kp LS(N7),    RT3 RM3, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
 
-ZMK_COMBO(underscore,     &kp LS(MINUS), RM0 RB0, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(minus,          &kp MINUS,     RM1 RB1, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(forward_slash,  &kp FSLH,      RM2 RB2, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
-ZMK_COMBO(pipe,           &kp LS(BSLH),  RM3 RB3, LAYER_Base LAYER_Number_hold, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(underscore,     &kp LS(MINUS), RM0 RB0, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(minus,          &kp MINUS,     RM1 RB1, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(forward_slash,  &kp FSLH,      RM2 RB2, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+ZMK_COMBO(pipe,           &kp LS(BSLH),  RM3 RB3, DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
